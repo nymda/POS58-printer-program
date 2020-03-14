@@ -74,6 +74,7 @@
             // 
             // button1
             // 
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(7, 357);
             this.button1.Name = "button1";
@@ -85,6 +86,7 @@
             // 
             // button2
             // 
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Location = new System.Drawing.Point(6, 297);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(181, 23);
@@ -103,7 +105,8 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(9, 434);
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Location = new System.Drawing.Point(6, 447);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(90, 23);
             this.button3.TabIndex = 8;
@@ -113,7 +116,7 @@
             // 
             // hScrollBar1
             // 
-            this.hScrollBar1.Location = new System.Drawing.Point(7, 336);
+            this.hScrollBar1.Location = new System.Drawing.Point(6, 339);
             this.hScrollBar1.Maximum = 362;
             this.hScrollBar1.Minimum = 10;
             this.hScrollBar1.Name = "hScrollBar1";
@@ -124,7 +127,8 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(100, 463);
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Location = new System.Drawing.Point(97, 471);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(90, 23);
             this.button4.TabIndex = 10;
@@ -134,7 +138,8 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(100, 434);
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button5.Location = new System.Drawing.Point(97, 447);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(90, 23);
             this.button5.TabIndex = 11;
@@ -144,6 +149,7 @@
             // 
             // richTextBox1
             // 
+            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox1.Font = new System.Drawing.Font("Lucida Console", 10F);
             this.richTextBox1.Location = new System.Drawing.Point(6, 19);
             this.richTextBox1.Name = "richTextBox1";
@@ -155,17 +161,18 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(90, 303);
+            this.checkBox2.Location = new System.Drawing.Point(90, 297);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(56, 17);
+            this.checkBox2.Size = new System.Drawing.Size(76, 17);
             this.checkBox2.TabIndex = 13;
-            this.checkBox2.Text = "center";
+            this.checkBox2.Text = "center text";
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(6, 299);
+            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button6.Location = new System.Drawing.Point(6, 297);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(78, 23);
             this.button6.TabIndex = 14;
@@ -190,14 +197,15 @@
             this.groupBox1.Controls.Add(this.button3);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(194, 528);
+            this.groupBox1.Size = new System.Drawing.Size(194, 524);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Image";
             // 
             // button13
             // 
-            this.button13.Location = new System.Drawing.Point(9, 463);
+            this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button13.Location = new System.Drawing.Point(6, 471);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(90, 23);
             this.button13.TabIndex = 23;
@@ -208,7 +216,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 395);
+            this.label4.Location = new System.Drawing.Point(6, 408);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(38, 13);
             this.label4.TabIndex = 22;
@@ -217,7 +225,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 359);
+            this.label2.Location = new System.Drawing.Point(6, 367);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(38, 13);
             this.label2.TabIndex = 20;
@@ -234,7 +242,7 @@
             // 
             // hScrollBar3
             // 
-            this.hScrollBar3.Location = new System.Drawing.Point(7, 408);
+            this.hScrollBar3.Location = new System.Drawing.Point(6, 421);
             this.hScrollBar3.Maximum = 274;
             this.hScrollBar3.Minimum = -274;
             this.hScrollBar3.Name = "hScrollBar3";
@@ -244,7 +252,7 @@
             // 
             // hScrollBar2
             // 
-            this.hScrollBar2.Location = new System.Drawing.Point(6, 373);
+            this.hScrollBar2.Location = new System.Drawing.Point(6, 382);
             this.hScrollBar2.Maximum = 181;
             this.hScrollBar2.Minimum = -181;
             this.hScrollBar2.Name = "hScrollBar2";
@@ -254,7 +262,8 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(9, 492);
+            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button8.Location = new System.Drawing.Point(6, 495);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(181, 23);
             this.button8.TabIndex = 16;
@@ -274,7 +283,7 @@
             this.groupBox2.Controls.Add(this.checkBox2);
             this.groupBox2.Location = new System.Drawing.Point(212, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(197, 431);
+            this.groupBox2.Size = new System.Drawing.Size(197, 439);
             this.groupBox2.TabIndex = 17;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Text";
@@ -282,7 +291,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 358);
+            this.label3.Location = new System.Drawing.Point(6, 365);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(38, 13);
             this.label3.TabIndex = 28;
@@ -291,7 +300,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 322);
+            this.label5.Location = new System.Drawing.Point(6, 323);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(38, 13);
             this.label5.TabIndex = 27;
@@ -299,7 +308,7 @@
             // 
             // hScrollBar4
             // 
-            this.hScrollBar4.Location = new System.Drawing.Point(7, 371);
+            this.hScrollBar4.Location = new System.Drawing.Point(9, 382);
             this.hScrollBar4.Maximum = 274;
             this.hScrollBar4.Minimum = -274;
             this.hScrollBar4.Name = "hScrollBar4";
@@ -308,7 +317,7 @@
             // 
             // hScrollBar5
             // 
-            this.hScrollBar5.Location = new System.Drawing.Point(6, 336);
+            this.hScrollBar5.Location = new System.Drawing.Point(9, 339);
             this.hScrollBar5.Maximum = 181;
             this.hScrollBar5.Minimum = -181;
             this.hScrollBar5.Name = "hScrollBar5";
@@ -317,7 +326,8 @@
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(7, 397);
+            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button9.Location = new System.Drawing.Point(9, 408);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(181, 23);
             this.button9.TabIndex = 17;
@@ -333,13 +343,14 @@
             this.groupBox3.Controls.Add(this.button1);
             this.groupBox3.Location = new System.Drawing.Point(415, 12);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(194, 394);
+            this.groupBox3.Size = new System.Drawing.Size(194, 390);
             this.groupBox3.TabIndex = 17;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Paper";
             // 
             // button11
             // 
+            this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button11.Location = new System.Drawing.Point(8, 328);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(181, 23);
@@ -350,6 +361,7 @@
             // 
             // button10
             // 
+            this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button10.Location = new System.Drawing.Point(7, 299);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(181, 23);
@@ -377,9 +389,9 @@
             this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.button12);
             this.groupBox4.Controls.Add(this.button7);
-            this.groupBox4.Location = new System.Drawing.Point(212, 446);
+            this.groupBox4.Location = new System.Drawing.Point(212, 452);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(397, 94);
+            this.groupBox4.Size = new System.Drawing.Size(397, 84);
             this.groupBox4.TabIndex = 19;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Util";
@@ -389,7 +401,7 @@
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(202, 71);
+            this.label7.Location = new System.Drawing.Point(203, 36);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(181, 13);
             this.label7.TabIndex = 27;
@@ -400,7 +412,7 @@
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(200, 51);
+            this.label8.Location = new System.Drawing.Point(201, 16);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(190, 20);
             this.label8.TabIndex = 26;
@@ -408,7 +420,8 @@
             // 
             // button12
             // 
-            this.button12.Location = new System.Drawing.Point(7, 48);
+            this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button12.Location = new System.Drawing.Point(6, 48);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(98, 23);
             this.button12.TabIndex = 21;
@@ -418,6 +431,7 @@
             // 
             // button7
             // 
+            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button7.Location = new System.Drawing.Point(7, 19);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(98, 23);
@@ -430,7 +444,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(626, 547);
+            this.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.ClientSize = new System.Drawing.Size(626, 555);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);

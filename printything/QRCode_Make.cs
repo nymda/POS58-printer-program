@@ -42,7 +42,8 @@ namespace printything
             try
             {
                 WebClient w = new WebClient();
-                byte[] barr = w.DownloadData(@"https://api.qrserver.com/v1/create-qr-code/?size=181x181&data=" + textBox1.Text.Replace(" ", "%20"));
+                byte[] barr = null;
+                barr = w.DownloadData(@"https://api.qrserver.com/v1/create-qr-code/?size=181x181&data=" + textBox1.Text.Replace(" ", "%20"));
                 using (var ms = new MemoryStream(barr))
                 {
                     bmp = new Bitmap(ms);
@@ -77,6 +78,11 @@ namespace printything
         }
 
         private void QRCode_Make_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
 
         }

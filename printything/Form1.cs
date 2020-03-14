@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -35,6 +36,8 @@ namespace printything
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            
+            pub = new Bitmap(1, 1);
             paperGraphics = Graphics.FromImage(paper);
             holdGraphics = Graphics.FromImage(holdImagePreview);
             paperGraphics.FillRectangle(Brushes.White, 0, 0, 181, 274);
@@ -172,7 +175,7 @@ namespace printything
                 if (result == DialogResult.OK)
                 {
                     pub = form.retBit;
-                    Size s = calcImgSize(pub, 181, false);
+                    Size s = calcImgSize(pub, 181, true);
                     pub = new Bitmap(pub, s);
                     holdGraphics.FillRectangle(Brushes.White, 0, 0, 181, 274);
                     holdGraphics.DrawImage(pub, hScrollBar2.Value, hScrollBar3.Value);
@@ -288,7 +291,7 @@ namespace printything
 
         private void button7_Click_1(object sender, EventArgs e)
         {
-            pub = null;
+            pub = new Bitmap(1, 1);
             holdImagePreview = new Bitmap(189, 274);
             paper = new Bitmap(189, 274);
 
