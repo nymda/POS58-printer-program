@@ -74,10 +74,12 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "confirmFlip";
             this.Text = "Confirm flip";
             this.Load += new System.EventHandler(this.confirmFlip_Load);
-            //((System.ComponentModel.ISupportInitialize)(this.performanceCounter1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.performanceCounter1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

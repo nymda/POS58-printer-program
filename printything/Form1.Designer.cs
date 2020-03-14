@@ -41,6 +41,7 @@
             this.fontDialog = new System.Windows.Forms.FontDialog();
             this.button6 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button13 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -54,16 +55,15 @@
             this.hScrollBar5 = new System.Windows.Forms.HScrollBar();
             this.button9 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button11 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.button11 = new System.Windows.Forms.Button();
             this.setSizeDelay = new System.Windows.Forms.Timer(this.components);
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.button13 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -194,6 +194,16 @@
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Image";
+            // 
+            // button13
+            // 
+            this.button13.Location = new System.Drawing.Point(9, 463);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(90, 23);
+            this.button13.TabIndex = 23;
+            this.button13.Text = "Rotate image";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
             // label4
             // 
@@ -328,6 +338,16 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Paper";
             // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(8, 328);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(181, 23);
+            this.button11.TabIndex = 18;
+            this.button11.Text = "Outline page";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
+            // 
             // button10
             // 
             this.button10.Location = new System.Drawing.Point(7, 299);
@@ -346,16 +366,6 @@
             this.pictureBox2.TabIndex = 7;
             this.pictureBox2.TabStop = false;
             // 
-            // button11
-            // 
-            this.button11.Location = new System.Drawing.Point(8, 328);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(181, 23);
-            this.button11.TabIndex = 18;
-            this.button11.Text = "Outline page";
-            this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.button11_Click);
-            // 
             // setSizeDelay
             // 
             this.setSizeDelay.Interval = 500;
@@ -373,26 +383,6 @@
             this.groupBox4.TabIndex = 19;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Util";
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(7, 19);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(98, 23);
-            this.button7.TabIndex = 20;
-            this.button7.Text = "Reset data";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click_1);
-            // 
-            // button12
-            // 
-            this.button12.Location = new System.Drawing.Point(7, 48);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(98, 23);
-            this.button12.TabIndex = 21;
-            this.button12.Text = "Reset sliders";
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // label7
             // 
@@ -416,15 +406,25 @@
             this.label8.TabIndex = 26;
             this.label8.Text = "Licensed under GPLv3\r\n";
             // 
-            // button13
+            // button12
             // 
-            this.button13.Location = new System.Drawing.Point(9, 463);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(90, 23);
-            this.button13.TabIndex = 23;
-            this.button13.Text = "Rotate image";
-            this.button13.UseVisualStyleBackColor = true;
-            this.button13.Click += new System.EventHandler(this.button13_Click);
+            this.button12.Location = new System.Drawing.Point(7, 48);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(98, 23);
+            this.button12.TabIndex = 21;
+            this.button12.Text = "Reset sliders";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(7, 19);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(98, 23);
+            this.button7.TabIndex = 20;
+            this.button7.Text = "Reset data";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click_1);
             // 
             // Form1
             // 
@@ -436,6 +436,8 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form1";
             this.Text = "Primpt";
             this.Load += new System.EventHandler(this.Form1_Load);

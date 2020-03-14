@@ -85,6 +85,8 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "QRCode_Make";
             this.Text = "Make QR code (Requires internet)";
             this.Load += new System.EventHandler(this.QRCode_Make_Load);

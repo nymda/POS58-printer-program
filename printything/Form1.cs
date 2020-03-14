@@ -252,13 +252,20 @@ namespace printything
 
         private void button12_Click(object sender, EventArgs e)
         {
-            hScrollBar1.Value = defPubSize;
-            hScrollBar2.Value = 0;
-            hScrollBar3.Value = 0;
-            hScrollBar4.Value = 0;
-            hScrollBar5.Value = 0;
-            setSizeDelay.Stop();
-            setSizeDelay.Start();
+            try { hScrollBar1.Value = defPubSize; }
+            catch { }
+            try { hScrollBar2.Value = 0; }
+            catch { }
+            try { hScrollBar3.Value = 0; }
+            catch { }
+            try { hScrollBar4.Value = 0; }
+            catch { }
+            try { hScrollBar5.Value = 0; }
+            catch { }
+            if(pub != null) { 
+                setSizeDelay.Stop();
+                setSizeDelay.Start();
+            }
         }
 
         private void button7_Click_1(object sender, EventArgs e)
