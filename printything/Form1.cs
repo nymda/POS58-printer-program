@@ -220,6 +220,24 @@ namespace printything
             refreshPaperPreview();
         }
 
+        public Bitmap removeWhite(Bitmap inp)
+        {
+            Bitmap tmp = new Bitmap(inp.Width, inp.Height);
+            Graphics g = Graphics.FromImage(tmp);
+            for(int x = 0; x < tmp.Width; x++)
+            {
+                for (int y = 0; y < tmp.Height; y++)
+                {
+                    Color thisPx = inp.GetPixel(x, y);
+                    if ((thisPx.R != 255) && (thisPx.G != 255) && (thisPx.B != 255))
+                    {
+                        g.DrawRectangle(new Pen(inp.GetPixel(x, y)), x, y, 1, 1);
+                    }
+                }
+            }
+            return tmp;
+        }
+
         private void button11_Click(object sender, EventArgs e)
         {
             paperGraphics.DrawRectangle(Pens.Black, new Rectangle(0, 0, 179, 273));
@@ -233,8 +251,8 @@ namespace printything
         }
 
         private void button8_Click(object sender, EventArgs e)
-        {
-            paperGraphics.DrawImage(pictureBox1.Image, new Point(0, 0));
+        {          
+            paperGraphics.DrawImage(removeWhite((Bitmap)pictureBox1.Image), new Point(0, 0));
             refreshPaperPreview();
         }
 

@@ -79,7 +79,7 @@
             this.Name = "confirmFlip";
             this.Text = "Confirm flip";
             this.Load += new System.EventHandler(this.confirmFlip_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.performanceCounter1)).EndInit();
+            //((System.ComponentModel.ISupportInitialize)(this.performanceCounter1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
