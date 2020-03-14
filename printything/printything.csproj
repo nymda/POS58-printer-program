@@ -44,6 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="confirmFlip.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="confirmFlip.Designer.cs">
+      <DependentUpon>confirmFlip.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,6 +64,9 @@
     <Compile Include="QRCode_Make.Designer.cs">
       <DependentUpon>QRCode_Make.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="confirmFlip.resx">
+      <DependentUpon>confirmFlip.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

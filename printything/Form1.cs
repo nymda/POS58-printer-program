@@ -18,49 +18,45 @@ namespace printything
             InitializeComponent();
         }
 
-        public int fomptsoze = 10;
-        bool printingImage = false;
+        public Font fmompt = new Font("Lucida Console", 10);
+        public Graphics paperGraphics;
+        public Graphics holdGraphics;
         Bitmap pub = null;
-        Bitmap pubPure = null;
-        Bitmap paper = new Bitmap(189, 12897);
+        Bitmap holdImagePreview = new Bitmap(189, 274);
+        Bitmap paper = new Bitmap(189, 274);
+        public bool centered = false;
+        public bool rotateLargeImage = false;
+        public int defPubSize = 0;
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Console.Write(textBox1.Text);
-            PrintDocument pd = new PrintDocument();
-            Graphics gr = Graphics.FromImage(paper);
-            //gr = e1.Graphics
-
-            pd.PrintPage += delegate (object sender1, PrintPageEventArgs e1)
-            {
-                Font fmompt = new Font("Lucida Console", fomptsoze);
-                e1.Graphics.DrawString(textBox1.Text, fmompt, new SolidBrush(Color.Black), new RectangleF(0, 3, pd.DefaultPageSettings.PrintableArea.Width, pd.DefaultPageSettings.PrintableArea.Height));
-                int stranglengf = (int)e1.Graphics.MeasureString(textBox1.Text, fmompt).Width;
-                int strangheite = (int)e1.Graphics.MeasureString(textBox1.Text, fmompt).Height;
-                if (checkBox1.Checked)
-                {
-                    e1.Graphics.DrawRectangle(Pens.Black, 0, 0, stranglengf, strangheite + 3);
-                }
-                if (printingImage)
-                {
-                    e1.Graphics.DrawImage(pub, new Point(0, 0));
-                }
-                pd.PrinterSettings.PrinterName = "POS58 Printer";
-            };
-
-            pictureBox1.Image = paper;
-            pd.Print();
-        }
-
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
-        {
-            fomptsoze = (int)numericUpDown1.Value;
-            textBox1.Font = new Font("Lucida Console", fomptsoze);
+            printFinalImage(paper);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            paperGraphics = Graphics.FromImage(paper);
+            holdGraphics = Graphics.FromImage(holdImagePreview);
+            paperGraphics.FillRectangle(Brushes.White, 0, 0, 181, 274);
+            holdGraphics.FillRectangle(Brushes.White, 0, 0, 181, 274);
+            pictureBox1.Image = holdImagePreview;
+            pictureBox2.Image = paper;
+        }
+
+        public void refreshPaperPreview()
+        {
+            pictureBox2.Image = paper;
+        }
+
+        public void printFinalImage(Bitmap output)
+        {
+            PrintDocument pd = new PrintDocument();
+            pd.PrintPage += delegate (object sender1, PrintPageEventArgs e1)
+            {
+                e1.Graphics.DrawImage(paper, new Point(0, 0));             
+                pd.PrinterSettings.PrinterName = "POS58 Printer";
+            };
+            pd.Print();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -72,21 +68,44 @@ namespace printything
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     pub = (Bitmap)Image.FromFile(dlg.FileName);
-                    printingImage = true;
-                    Size s = calcImgSize(pub, 181);
+                    Size s = calcImgSize(pub, 181, true);
                     pub = new Bitmap(pub, s);
-                    hScrollBar1.Maximum = pub.Width;
-                    pictureBox1.Image = pub;
+                    holdGraphics.FillRectangle(Brushes.White, 0, 0, 181, 274);
+                    holdGraphics.DrawImage(pub, hScrollBar2.Value, hScrollBar3.Value);
+                    defPubSize = pub.Width;
+                    pictureBox1.Image = holdImagePreview;
                 }
             }
         }
         
-        public Size calcImgSize(Bitmap b, int width)
+        public Size calcImgSize(Bitmap b, int width, bool firstRun)
         {
-            if(b.Width > b.Height)
+            if (firstRun)
             {
-                b.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                firstRun = false;
+                if (b.Width > b.Height)
+                {
+                    using (var form = new confirmFlip())
+                    {
+                        var result = form.ShowDialog();
+                        if (result == DialogResult.OK)
+                        {
+                            rotateLargeImage = true;
+                            b.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                        }                       
+                    }
+                }
             }
+            else
+            {
+                if (b.Width > b.Height){
+                    if (rotateLargeImage)
+                    {
+                        b.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    }
+                }
+            }
+
             int sourceWidth = b.Width;
             int sourceHeight = b.Height;
             float nPercent = ((float)width / (float)sourceWidth);
@@ -106,24 +125,43 @@ namespace printything
             return b;
         }
 
+        public Bitmap lightenImg(Bitmap b)
+        {
+            Graphics g = Graphics.FromImage(b);
+            Color darkTrans = Color.FromArgb(64, 255, 255, 255);
+            Bitmap dtrans = new Bitmap(b.Width, b.Height);
+            g.DrawImage(b, 0, 0);
+            g.FillRectangle(new SolidBrush(darkTrans), 0, 0, b.Width, b.Height);
+            return b;
+        }
+
         private void button3_Click(object sender, EventArgs e)
         {
-            pub = darkenImg(pub);
-            pictureBox1.Image = pub;
+            holdImagePreview = darkenImg(holdImagePreview);
+            pictureBox1.Image = holdImagePreview;
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            holdImagePreview = lightenImg(holdImagePreview);
+            pictureBox1.Image = holdImagePreview;
         }
 
         private void timer1_Tick_1(object sender, EventArgs e)
         {
-            Size s = calcImgSize(pub, hScrollBar1.Value);
+            holdGraphics.FillRectangle(Brushes.White, 0, 0, 181, 274);
+            Size s = calcImgSize(pub, hScrollBar1.Value, false);
             pub = new Bitmap(pub, s);
-            pictureBox1.Image = pub;
-            timer1.Stop();
+            holdGraphics.FillRectangle(Brushes.White, hScrollBar2.Value, hScrollBar3.Value, 181, 274);
+            holdGraphics.DrawImage(pub, hScrollBar2.Value, hScrollBar3.Value);
+            pictureBox1.Image = holdImagePreview;
+            setSizeDelay.Stop();
         }
 
         private void hScrollBar1_Scroll(object sender, ScrollEventArgs e)
         {
-            timer1.Stop();
-            timer1.Start();
+            setSizeDelay.Stop();
+            setSizeDelay.Start();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -133,15 +171,115 @@ namespace printything
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    Bitmap qrCode = form.retBit;
-                    pub = qrCode;
-                    printingImage = true;
-                    Size s = calcImgSize(pub, 181);
+                    pub = form.retBit;
+                    Size s = calcImgSize(pub, 181, false);
                     pub = new Bitmap(pub, s);
-                    hScrollBar1.Maximum = pub.Width;
-                    pictureBox1.Image = pub;         
+                    holdGraphics.FillRectangle(Brushes.White, 0, 0, 181, 274);
+                    holdGraphics.DrawImage(pub, hScrollBar2.Value, hScrollBar3.Value);
+                    hScrollBar1.Maximum = pub.Width * 2;
+                    pictureBox1.Image = holdImagePreview;       
                 }
             }
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            centered = !centered;
+            if (centered)
+            {
+                richTextBox1.SelectionAlignment = HorizontalAlignment.Center;
+            }
+            else
+            {
+                richTextBox1.SelectionAlignment = HorizontalAlignment.Left;
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (fontDialog.ShowDialog() != DialogResult.Cancel)
+            {
+                richTextBox1.Font = fontDialog.Font;
+                fmompt = fontDialog.Font;
+            }
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            //place text on paper
+            StringFormat sf = new StringFormat();
+            if (centered)
+            {
+                sf.Alignment = StringAlignment.Center;
+            }
+            else
+            {
+                sf.Alignment = StringAlignment.Near;
+            }
+            paperGraphics.DrawString(richTextBox1.Text, fmompt, new SolidBrush(Color.Black), new RectangleF(hScrollBar5.Value, hScrollBar4.Value, 179, 274), sf);
+            refreshPaperPreview();
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            paperGraphics.DrawRectangle(Pens.Black, new Rectangle(0, 0, 179, 273));
+            refreshPaperPreview();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            paperGraphics.FillRectangle(Brushes.White, 0, 0, 181, 274);
+            refreshPaperPreview();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            paperGraphics.DrawImage(pictureBox1.Image, new Point(0, 0));
+            refreshPaperPreview();
+        }
+
+        private void hScrollBar2_Scroll(object sender, ScrollEventArgs e)
+        {
+            setSizeDelay.Stop();
+            setSizeDelay.Start();
+        }
+
+        private void hScrollBar3_Scroll(object sender, ScrollEventArgs e)
+        {
+            setSizeDelay.Stop();
+            setSizeDelay.Start();
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            hScrollBar1.Value = defPubSize;
+            hScrollBar2.Value = 0;
+            hScrollBar3.Value = 0;
+            hScrollBar4.Value = 0;
+            hScrollBar5.Value = 0;
+            setSizeDelay.Stop();
+            setSizeDelay.Start();
+        }
+
+        private void button7_Click_1(object sender, EventArgs e)
+        {
+            pub = null;
+            holdImagePreview = new Bitmap(189, 274);
+            paper = new Bitmap(189, 274);
+
+            paperGraphics = Graphics.FromImage(paper);
+            holdGraphics = Graphics.FromImage(holdImagePreview);
+            paperGraphics.FillRectangle(Brushes.White, 0, 0, 181, 274);
+            holdGraphics.FillRectangle(Brushes.White, 0, 0, 181, 274);
+            pictureBox1.Image = holdImagePreview;
+            pictureBox2.Image = paper;
+
+            richTextBox1.Text = "";
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

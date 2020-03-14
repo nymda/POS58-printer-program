@@ -75,5 +75,10 @@ namespace printything
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
+
+        private void QRCode_Make_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
