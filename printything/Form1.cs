@@ -28,6 +28,7 @@ namespace printything
         public bool centered = false;
         public bool rotateLargeImage = false;
         public int defPubSize = 0;
+        public int paperHeight = 274;
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -308,6 +309,21 @@ namespace printything
         private void button13_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            PrintDocument pd = new PrintDocument();
+            pd.PrintPage += delegate (object sender1, PrintPageEventArgs e1)
+            {
+                StringFormat sf = new StringFormat();
+                if (centered){ sf.Alignment = StringAlignment.Center; }
+                else{ sf.Alignment = StringAlignment.Near; }
+                //print text to new canvas, use default max printing height.
+                e1.Graphics.DrawString(richTextBox1.Text, fmompt, new SolidBrush(Color.Black), new RectangleF(0, 3, pd.DefaultPageSettings.PrintableArea.Width, pd.DefaultPageSettings.PrintableArea.Height), sf);
+                pd.PrinterSettings.PrinterName = "POS58 Printer";
+            };
+            pd.Print();
         }
     }
 }
