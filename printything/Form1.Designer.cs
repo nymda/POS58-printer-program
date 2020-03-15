@@ -65,6 +65,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.button12 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -202,6 +204,7 @@
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Image";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // button13
             // 
@@ -274,6 +277,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.radioButton2);
+            this.groupBox2.Controls.Add(this.radioButton1);
             this.groupBox2.Controls.Add(this.button14);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.label5);
@@ -325,7 +330,7 @@
             this.hScrollBar4.Maximum = 274;
             this.hScrollBar4.Minimum = -274;
             this.hScrollBar4.Name = "hScrollBar4";
-            this.hScrollBar4.Size = new System.Drawing.Size(181, 23);
+            this.hScrollBar4.Size = new System.Drawing.Size(111, 23);
             this.hScrollBar4.TabIndex = 25;
             // 
             // hScrollBar5
@@ -334,7 +339,7 @@
             this.hScrollBar5.Maximum = 181;
             this.hScrollBar5.Minimum = -181;
             this.hScrollBar5.Name = "hScrollBar5";
-            this.hScrollBar5.Size = new System.Drawing.Size(181, 23);
+            this.hScrollBar5.Size = new System.Drawing.Size(111, 23);
             this.hScrollBar5.TabIndex = 24;
             // 
             // button9
@@ -453,6 +458,29 @@
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click_1);
             // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(125, 474);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(66, 17);
+            this.radioButton1.TabIndex = 30;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Black txt";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(125, 494);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(67, 17);
+            this.radioButton2.TabIndex = 31;
+            this.radioButton2.Text = "White txt";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -519,6 +547,8 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton1;
     }
 }
 

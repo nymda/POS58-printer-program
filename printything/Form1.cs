@@ -29,6 +29,7 @@ namespace printything
         public bool rotateLargeImage = false;
         public int defPubSize = 0;
         public int paperHeight = 390;
+        public bool whiteText = false;
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -220,7 +221,14 @@ namespace printything
             {
                 sf.Alignment = StringAlignment.Near;
             }
-            paperGraphics.DrawString(richTextBox1.Text, fmompt, new SolidBrush(Color.Black), new RectangleF(hScrollBar5.Value, hScrollBar4.Value, 179, 390), sf);
+            if (!whiteText)
+            {
+                paperGraphics.DrawString(richTextBox1.Text, fmompt, new SolidBrush(Color.Black), new RectangleF(hScrollBar5.Value, hScrollBar4.Value, 179, 390), sf);
+            }
+            else
+            {
+                paperGraphics.DrawString(richTextBox1.Text, fmompt, new SolidBrush(Color.White), new RectangleF(hScrollBar5.Value, hScrollBar4.Value, 179, 390), sf);
+            }
             refreshPaperPreview();
         }
 
@@ -324,6 +332,23 @@ namespace printything
                 pd.PrinterSettings.PrinterName = "POS58 Printer";
             };
             pd.Print();
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton1.Checked)
+            {
+                whiteText = false;
+            }
+            else
+            {
+                whiteText = true;
+            }
         }
     }
 }
