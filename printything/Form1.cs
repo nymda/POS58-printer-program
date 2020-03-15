@@ -339,7 +339,18 @@ namespace printything
 
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        private void pictureBox2_Click(object sender, MouseEventArgs e)
+        {
+            numericUpDown1.Value = e.Y;
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            paperGraphics.FillRectangle(Brushes.White, 0, (int)numericUpDown1.Value, 190, 390 - (int)numericUpDown1.Value);
+            refreshPaperPreview();
+        }
+
+        private void radioButton1_CheckedChanged_1(object sender, EventArgs e)
         {
             if (radioButton1.Checked)
             {
