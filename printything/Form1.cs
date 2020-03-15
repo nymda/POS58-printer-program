@@ -23,12 +23,12 @@ namespace printything
         public Graphics paperGraphics;
         public Graphics holdGraphics;
         Bitmap pub = null;
-        Bitmap holdImagePreview = new Bitmap(189, 274);
-        Bitmap paper = new Bitmap(189, 274);
+        Bitmap holdImagePreview = new Bitmap(189, 390);
+        Bitmap paper = new Bitmap(189, 390);
         public bool centered = false;
         public bool rotateLargeImage = false;
         public int defPubSize = 0;
-        public int paperHeight = 274;
+        public int paperHeight = 390;
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -41,8 +41,8 @@ namespace printything
             pub = new Bitmap(1, 1);
             paperGraphics = Graphics.FromImage(paper);
             holdGraphics = Graphics.FromImage(holdImagePreview);
-            paperGraphics.FillRectangle(Brushes.White, 0, 0, 181, 274);
-            holdGraphics.FillRectangle(Brushes.White, 0, 0, 181, 274);
+            paperGraphics.FillRectangle(Brushes.White, 0, 0, 181, 390);
+            holdGraphics.FillRectangle(Brushes.White, 0, 0, 181, 390);
             pictureBox1.Image = holdImagePreview;
             pictureBox2.Image = paper;
         }
@@ -74,7 +74,7 @@ namespace printything
                     pub = (Bitmap)Image.FromFile(dlg.FileName);
                     Size s = calcImgSize(pub, 181, true);
                     pub = new Bitmap(pub, s);
-                    holdGraphics.FillRectangle(Brushes.White, 0, 0, 181, 274);
+                    holdGraphics.FillRectangle(Brushes.White, 0, 0, 181, 390);
                     holdGraphics.DrawImage(pub, hScrollBar2.Value, hScrollBar3.Value);
                     defPubSize = pub.Width;
                     pictureBox1.Image = holdImagePreview;
@@ -153,10 +153,10 @@ namespace printything
 
         private void timer1_Tick_1(object sender, EventArgs e)
         {
-            holdGraphics.FillRectangle(Brushes.White, 0, 0, 181, 274);
+            holdGraphics.FillRectangle(Brushes.White, 0, 0, 181, 390);
             Size s = calcImgSize(pub, hScrollBar1.Value, false);
             pub = new Bitmap(pub, s);
-            holdGraphics.FillRectangle(Brushes.White, hScrollBar2.Value, hScrollBar3.Value, 181, 274);
+            holdGraphics.FillRectangle(Brushes.White, hScrollBar2.Value, hScrollBar3.Value, 181, 390);
             holdGraphics.DrawImage(pub, hScrollBar2.Value, hScrollBar3.Value);
             pictureBox1.Image = holdImagePreview;
             setSizeDelay.Stop();
@@ -178,7 +178,7 @@ namespace printything
                     pub = form.retBit;
                     Size s = calcImgSize(pub, 181, true);
                     pub = new Bitmap(pub, s);
-                    holdGraphics.FillRectangle(Brushes.White, 0, 0, 181, 274);
+                    holdGraphics.FillRectangle(Brushes.White, 0, 0, 181, 390);
                     holdGraphics.DrawImage(pub, hScrollBar2.Value, hScrollBar3.Value);
                     hScrollBar1.Maximum = pub.Width * 2;
                     pictureBox1.Image = holdImagePreview;       
@@ -220,7 +220,7 @@ namespace printything
             {
                 sf.Alignment = StringAlignment.Near;
             }
-            paperGraphics.DrawString(richTextBox1.Text, fmompt, new SolidBrush(Color.Black), new RectangleF(hScrollBar5.Value, hScrollBar4.Value, 179, 274), sf);
+            paperGraphics.DrawString(richTextBox1.Text, fmompt, new SolidBrush(Color.Black), new RectangleF(hScrollBar5.Value, hScrollBar4.Value, 179, 390), sf);
             refreshPaperPreview();
         }
 
@@ -244,13 +244,13 @@ namespace printything
 
         private void button11_Click(object sender, EventArgs e)
         {
-            paperGraphics.DrawRectangle(Pens.Black, new Rectangle(0, 0, 179, 273));
+            paperGraphics.DrawRectangle(Pens.Black, new Rectangle(0, 0, 179, 389));
             refreshPaperPreview();
         }
 
         private void button10_Click(object sender, EventArgs e)
         {
-            paperGraphics.FillRectangle(Brushes.White, 0, 0, 181, 274);
+            paperGraphics.FillRectangle(Brushes.White, 0, 0, 181, 390);
             refreshPaperPreview();
         }
 
@@ -293,13 +293,13 @@ namespace printything
         private void button7_Click_1(object sender, EventArgs e)
         {
             pub = new Bitmap(1, 1);
-            holdImagePreview = new Bitmap(189, 274);
-            paper = new Bitmap(189, 274);
+            holdImagePreview = new Bitmap(189, 390);
+            paper = new Bitmap(189, 390);
 
             paperGraphics = Graphics.FromImage(paper);
             holdGraphics = Graphics.FromImage(holdImagePreview);
-            paperGraphics.FillRectangle(Brushes.White, 0, 0, 181, 274);
-            holdGraphics.FillRectangle(Brushes.White, 0, 0, 181, 274);
+            paperGraphics.FillRectangle(Brushes.White, 0, 0, 181, 390);
+            holdGraphics.FillRectangle(Brushes.White, 0, 0, 181, 390);
             pictureBox1.Image = holdImagePreview;
             pictureBox2.Image = paper;
 
