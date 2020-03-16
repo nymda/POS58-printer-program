@@ -414,7 +414,7 @@
             this.groupBox3.Controls.Add(this.trackBar1);
             this.groupBox3.Location = new System.Drawing.Point(415, 12);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(239, 506);
+            this.groupBox3.Size = new System.Drawing.Size(228, 506);
             this.groupBox3.TabIndex = 17;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Paper";
@@ -422,9 +422,9 @@
             // button11
             // 
             this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button11.Location = new System.Drawing.Point(7, 445);
+            this.button11.Location = new System.Drawing.Point(6, 445);
             this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(226, 23);
+            this.button11.Size = new System.Drawing.Size(213, 23);
             this.button11.TabIndex = 18;
             this.button11.Text = "Outline page (To set height)";
             this.button11.UseVisualStyleBackColor = true;
@@ -435,7 +435,7 @@
             this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button10.Location = new System.Drawing.Point(7, 416);
             this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(226, 23);
+            this.button10.Size = new System.Drawing.Size(212, 23);
             this.button10.TabIndex = 17;
             this.button10.Text = "Clear";
             this.button10.UseVisualStyleBackColor = true;
@@ -456,7 +456,7 @@
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(7, 474);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(226, 23);
+            this.button1.Size = new System.Drawing.Size(212, 23);
             this.button1.TabIndex = 2;
             this.button1.Text = "Print";
             this.button1.UseVisualStyleBackColor = true;
@@ -467,7 +467,7 @@
             this.groupBox5.Controls.Add(this.button15);
             this.groupBox5.Location = new System.Drawing.Point(415, 519);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(239, 55);
+            this.groupBox5.Size = new System.Drawing.Size(228, 55);
             this.groupBox5.TabIndex = 20;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Vertical Cut";
@@ -477,7 +477,7 @@
             this.button15.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button15.Location = new System.Drawing.Point(6, 19);
             this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(227, 23);
+            this.button15.Size = new System.Drawing.Size(213, 23);
             this.button15.TabIndex = 18;
             this.button15.Text = "Cut to 390px";
             this.button15.UseVisualStyleBackColor = true;
@@ -502,7 +502,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.ClientSize = new System.Drawing.Size(668, 671);
+            this.ClientSize = new System.Drawing.Size(652, 671);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
