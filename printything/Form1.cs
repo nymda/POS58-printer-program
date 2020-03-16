@@ -30,6 +30,7 @@ namespace printything
         public int defPubSize = 0;
         public int paperHeight = 390;
         public bool whiteText = false;
+        public int cutHeight = 390;
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -252,7 +253,7 @@ namespace printything
 
         private void button11_Click(object sender, EventArgs e)
         {
-            paperGraphics.DrawRectangle(Pens.Black, new Rectangle(0, 0, 179, 389));
+            paperGraphics.DrawRectangle(Pens.Black, new Rectangle(0, 0, 180, cutHeight - 1));
             refreshPaperPreview();
         }
 
@@ -341,12 +342,12 @@ namespace printything
 
         private void pictureBox2_Click(object sender, MouseEventArgs e)
         {
-            numericUpDown1.Value = e.Y;
+
         }
 
         private void button15_Click(object sender, EventArgs e)
         {
-            paperGraphics.FillRectangle(Brushes.White, 0, (int)numericUpDown1.Value, 190, 390 - (int)numericUpDown1.Value);
+            paperGraphics.FillRectangle(Brushes.White, 0, cutHeight, 190, 390 - cutHeight);
             refreshPaperPreview();
         }
 
@@ -360,6 +361,12 @@ namespace printything
             {
                 whiteText = true;
             }
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            cutHeight = Math.Abs(trackBar1.Value);
+            button15.Text = "Cut to " + cutHeight + "px";
         }
     }
 }

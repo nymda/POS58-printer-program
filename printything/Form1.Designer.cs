@@ -67,9 +67,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.button15 = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -77,7 +75,7 @@
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // button2
@@ -413,9 +411,10 @@
             this.groupBox3.Controls.Add(this.button10);
             this.groupBox3.Controls.Add(this.pictureBox2);
             this.groupBox3.Controls.Add(this.button1);
+            this.groupBox3.Controls.Add(this.trackBar1);
             this.groupBox3.Location = new System.Drawing.Point(415, 12);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(194, 506);
+            this.groupBox3.Size = new System.Drawing.Size(239, 506);
             this.groupBox3.TabIndex = 17;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Paper";
@@ -425,9 +424,9 @@
             this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button11.Location = new System.Drawing.Point(7, 445);
             this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(181, 23);
+            this.button11.Size = new System.Drawing.Size(226, 23);
             this.button11.TabIndex = 18;
-            this.button11.Text = "Outline page";
+            this.button11.Text = "Outline page (To set height)";
             this.button11.UseVisualStyleBackColor = true;
             this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
@@ -436,7 +435,7 @@
             this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button10.Location = new System.Drawing.Point(7, 416);
             this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(181, 23);
+            this.button10.Size = new System.Drawing.Size(226, 23);
             this.button10.TabIndex = 17;
             this.button10.Text = "Clear";
             this.button10.UseVisualStyleBackColor = true;
@@ -457,7 +456,7 @@
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(7, 474);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(181, 23);
+            this.button1.Size = new System.Drawing.Size(226, 23);
             this.button1.TabIndex = 2;
             this.button1.Text = "Print";
             this.button1.UseVisualStyleBackColor = true;
@@ -466,64 +465,44 @@
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.button15);
-            this.groupBox5.Controls.Add(this.label9);
-            this.groupBox5.Controls.Add(this.label6);
-            this.groupBox5.Controls.Add(this.numericUpDown1);
             this.groupBox5.Location = new System.Drawing.Point(415, 519);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(194, 143);
+            this.groupBox5.Size = new System.Drawing.Size(239, 55);
             this.groupBox5.TabIndex = 20;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Vertical Crop";
+            this.groupBox5.Text = "Vertical Cut";
             // 
             // button15
             // 
             this.button15.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button15.Location = new System.Drawing.Point(6, 103);
+            this.button15.Location = new System.Drawing.Point(6, 19);
             this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(181, 23);
+            this.button15.Size = new System.Drawing.Size(227, 23);
             this.button15.TabIndex = 18;
-            this.button15.Text = "Draw";
+            this.button15.Text = "Cut to 390px";
             this.button15.UseVisualStyleBackColor = true;
             this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
-            // label9
+            // trackBar1
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(14, 46);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(138, 65);
-            this.label9.TabIndex = 2;
-            this.label9.Text = "Erases the part of the paper\r\nfrom this point downwards,.\r\nClick the paper image " +
-    "to\r\nset the height.\r\n\r\n";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(14, 25);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(41, 13);
-            this.label6.TabIndex = 1;
-            this.label6.Text = "Height:";
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(61, 23);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
-            390,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown1.TabIndex = 0;
+            this.trackBar1.Location = new System.Drawing.Point(174, 19);
+            this.trackBar1.Maximum = 0;
+            this.trackBar1.Minimum = -390;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.trackBar1.RightToLeftLayout = true;
+            this.trackBar1.Size = new System.Drawing.Size(45, 390);
+            this.trackBar1.TabIndex = 21;
+            this.trackBar1.Value = -390;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.ClientSize = new System.Drawing.Size(623, 671);
+            this.ClientSize = new System.Drawing.Size(668, 671);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -542,10 +521,10 @@
             this.groupBox2.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -589,9 +568,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Button button15;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.TrackBar trackBar1;
     }
 }
 
