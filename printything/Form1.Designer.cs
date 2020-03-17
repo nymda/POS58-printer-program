@@ -65,17 +65,19 @@
             this.button10 = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.button15 = new System.Windows.Forms.Button();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.button16 = new System.Windows.Forms.Button();
+            this.button17 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // button2
@@ -122,11 +124,11 @@
             // button4
             // 
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Location = new System.Drawing.Point(97, 594);
+            this.button4.Location = new System.Drawing.Point(11, 19);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(90, 23);
+            this.button4.Size = new System.Drawing.Size(98, 52);
             this.button4.TabIndex = 10;
-            this.button4.Text = "QR-Code";
+            this.button4.Text = "Create QR-Code";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -176,6 +178,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button17);
             this.groupBox1.Controls.Add(this.button13);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label2);
@@ -186,7 +189,6 @@
             this.groupBox1.Controls.Add(this.pictureBox1);
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.hScrollBar1);
-            this.groupBox1.Controls.Add(this.button4);
             this.groupBox1.Controls.Add(this.button5);
             this.groupBox1.Controls.Add(this.button3);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
@@ -195,7 +197,6 @@
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Image";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // button13
             // 
@@ -204,7 +205,7 @@
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(90, 23);
             this.button13.TabIndex = 23;
-            this.button13.Text = "Rotate image";
+            this.button13.Text = "+ Contrast";
             this.button13.UseVisualStyleBackColor = true;
             this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
@@ -258,6 +259,7 @@
             // button8
             // 
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button8.Location = new System.Drawing.Point(6, 619);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(181, 23);
@@ -374,11 +376,13 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.button16);
             this.groupBox4.Controls.Add(this.button12);
             this.groupBox4.Controls.Add(this.button7);
+            this.groupBox4.Controls.Add(this.button4);
             this.groupBox4.Location = new System.Drawing.Point(212, 575);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(197, 87);
+            this.groupBox4.Size = new System.Drawing.Size(431, 87);
             this.groupBox4.TabIndex = 19;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Util";
@@ -386,9 +390,9 @@
             // button12
             // 
             this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button12.Location = new System.Drawing.Point(48, 48);
+            this.button12.Location = new System.Drawing.Point(115, 19);
             this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(98, 23);
+            this.button12.Size = new System.Drawing.Size(98, 52);
             this.button12.TabIndex = 21;
             this.button12.Text = "Reset sliders";
             this.button12.UseVisualStyleBackColor = true;
@@ -397,9 +401,9 @@
             // button7
             // 
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Location = new System.Drawing.Point(48, 19);
+            this.button7.Location = new System.Drawing.Point(219, 19);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(98, 23);
+            this.button7.Size = new System.Drawing.Size(98, 52);
             this.button7.TabIndex = 20;
             this.button7.Text = "Reset data";
             this.button7.UseVisualStyleBackColor = true;
@@ -448,7 +452,6 @@
             this.pictureBox2.Size = new System.Drawing.Size(181, 390);
             this.pictureBox2.TabIndex = 7;
             this.pictureBox2.TabStop = false;
-            this.pictureBox2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_Click);
             // 
             // button1
             // 
@@ -461,6 +464,20 @@
             this.button1.Text = "Print";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.Location = new System.Drawing.Point(174, 19);
+            this.trackBar1.Maximum = 0;
+            this.trackBar1.Minimum = -390;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.trackBar1.RightToLeftLayout = true;
+            this.trackBar1.Size = new System.Drawing.Size(45, 390);
+            this.trackBar1.TabIndex = 21;
+            this.trackBar1.Value = -390;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // groupBox5
             // 
@@ -483,19 +500,26 @@
             this.button15.UseVisualStyleBackColor = true;
             this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
-            // trackBar1
+            // button16
             // 
-            this.trackBar1.Location = new System.Drawing.Point(174, 19);
-            this.trackBar1.Maximum = 0;
-            this.trackBar1.Minimum = -390;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.trackBar1.RightToLeftLayout = true;
-            this.trackBar1.Size = new System.Drawing.Size(45, 390);
-            this.trackBar1.TabIndex = 21;
-            this.trackBar1.Value = -390;
-            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            this.button16.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button16.Location = new System.Drawing.Point(323, 19);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(98, 52);
+            this.button16.TabIndex = 22;
+            this.button16.Text = "Help";
+            this.button16.UseVisualStyleBackColor = true;
+            // 
+            // button17
+            // 
+            this.button17.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button17.Location = new System.Drawing.Point(97, 594);
+            this.button17.Name = "button17";
+            this.button17.Size = new System.Drawing.Size(90, 23);
+            this.button17.TabIndex = 24;
+            this.button17.Text = "Mono";
+            this.button17.UseVisualStyleBackColor = true;
+            this.button17.Click += new System.EventHandler(this.button17_Click);
             // 
             // Form1
             // 
@@ -523,8 +547,8 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            this.groupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            this.groupBox5.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -569,6 +593,8 @@
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Button button15;
         private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.Button button17;
+        private System.Windows.Forms.Button button16;
     }
 }
 

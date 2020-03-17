@@ -25,6 +25,7 @@ namespace printything
         Bitmap pub = null;
         Bitmap holdImagePreview = new Bitmap(189, 390);
         Bitmap paper = new Bitmap(189, 390);
+        Bitmap loadedImagePure;
         public bool centered = false;
         public bool rotateLargeImage = false;
         public int defPubSize = 0;
@@ -47,6 +48,8 @@ namespace printything
             holdGraphics.FillRectangle(Brushes.White, 0, 0, 190, 390);
             pictureBox1.Image = holdImagePreview;
             pictureBox2.Image = paper;
+            holdGraphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+            holdGraphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
         }
 
         public void refreshPaperPreview()
@@ -73,6 +76,7 @@ namespace printything
 
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
+                    loadedImagePure = (Bitmap)Image.FromFile(dlg.FileName);
                     pub = (Bitmap)Image.FromFile(dlg.FileName);
                     Size s = calcImgSize(pub, 190, true);
                     pub = new Bitmap(pub, s);
@@ -84,11 +88,10 @@ namespace printything
             }
         }
         
-        public Size calcImgSize(Bitmap b, int width, bool firstRun)
+        public Size calcImgSize(Bitmap b, int width, bool showRotDialog)
         {
-            if (firstRun)
+            if (showRotDialog)
             {
-                firstRun = false;
                 if (b.Width > b.Height)
                 {
                     using (var form = new confirmFlip())
@@ -96,18 +99,9 @@ namespace printything
                         var result = form.ShowDialog();
                         if (result == DialogResult.OK)
                         {
-                            rotateLargeImage = true;
                             b.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                        }                       
-                    }
-                }
-            }
-            else
-            {
-                if (b.Width > b.Height){
-                    if (rotateLargeImage)
-                    {
-                        b.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                            loadedImagePure.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                        }
                     }
                 }
             }
@@ -128,6 +122,8 @@ namespace printything
             Bitmap dtrans = new Bitmap(b.Width, b.Height);
             g.DrawImage(b, 0, 0);
             g.FillRectangle(new SolidBrush(darkTrans), 0, 0, b.Width, b.Height);
+            dtrans.Dispose();
+            g.Dispose();
             return b;
         }
 
@@ -138,7 +134,75 @@ namespace printything
             Bitmap dtrans = new Bitmap(b.Width, b.Height);
             g.DrawImage(b, 0, 0);
             g.FillRectangle(new SolidBrush(darkTrans), 0, 0, b.Width, b.Height);
+            dtrans.Dispose();
+            g.Dispose();
             return b;
+        }
+
+        public Bitmap increaseContrast(Bitmap b, int contrast)
+        {
+            Bitmap canvas = new Bitmap(b.Width, b.Height);
+            Graphics g = Graphics.FromImage(canvas);
+
+            for (int x = 0; x < b.Width; x++)
+            {
+                for (int y = 0; y < b.Height; y++)
+                {
+                    float factor = (259 * (contrast + 255)) / (255 * (259 - contrast));
+                    factor = 5;
+                    Color tmpColor = b.GetPixel(x, y);
+                    float nRed = truncate(factor * (tmpColor.R - 128f) + 128f);
+                    float nGre = truncate(factor * (tmpColor.G - 128f) + 128f);
+                    float nBlu = truncate(factor * (tmpColor.B - 128f) + 128f);
+                    Color nCol = Color.FromArgb((int)nRed, (int)nGre, (int)nBlu);
+                    g.DrawRectangle(new Pen(nCol), x, y, 1, 1);
+                }
+            }
+
+            return canvas;
+        }
+
+        public Bitmap monoChrome(Bitmap b)
+        {
+            Bitmap canvas = new Bitmap(b.Width, b.Height);
+            Graphics g = Graphics.FromImage(canvas);
+
+            for (int x = 0; x < b.Width; x++)
+            {
+                for (int y = 0; y < b.Height; y++)
+                {
+                    Color tmpColor = b.GetPixel(x, y);
+                    int[] values = { tmpColor.R, tmpColor.B, tmpColor.G };
+                    double avg = values.Average();
+                    Color nCol;
+                    if(avg > 128)
+                    {
+                        nCol = Color.FromArgb(255, 255, 255);
+                    }
+                    else
+                    {
+                        nCol = Color.FromArgb(0, 0, 0);
+                    }
+                    g.DrawRectangle(new Pen(nCol), x, y, 1, 1);
+                }
+            }
+            return canvas;
+        }
+
+        public float truncate(float i)
+        {
+            if(i > 255)
+            {
+                return 255;
+            }
+            else if(i < 0)
+            {
+                return 0;
+            }
+            else
+            {
+                return i;
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -157,7 +221,7 @@ namespace printything
         {
             holdGraphics.FillRectangle(Brushes.White, 0, 0, 190, 390);
             Size s = calcImgSize(pub, hScrollBar1.Value, false);
-            pub = new Bitmap(pub, s);
+            pub = new Bitmap(loadedImagePure, s);
             holdGraphics.FillRectangle(Brushes.White, hScrollBar2.Value, hScrollBar3.Value, 190, 390);
             holdGraphics.DrawImage(pub, hScrollBar2.Value, hScrollBar3.Value);
             pictureBox1.Image = holdImagePreview;
@@ -203,6 +267,7 @@ namespace printything
 
         private void button6_Click(object sender, EventArgs e)
         {
+            fontDialog.Font = fmompt;
             if (fontDialog.ShowDialog() != DialogResult.Cancel)
             {
                 richTextBox1.Font = fontDialog.Font;
@@ -301,7 +366,13 @@ namespace printything
 
         private void button7_Click_1(object sender, EventArgs e)
         {
+            pub.Dispose();
+            loadedImagePure.Dispose();
+            holdImagePreview.Dispose();
+            paper.Dispose();
+
             pub = new Bitmap(1, 1);
+            loadedImagePure = new Bitmap(1, 1);
             holdImagePreview = new Bitmap(189, 390);
             paper = new Bitmap(189, 390);
 
@@ -315,11 +386,6 @@ namespace printything
             richTextBox1.Text = "";
         }
 
-        private void button13_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button14_Click(object sender, EventArgs e)
         {
             PrintDocument pd = new PrintDocument();
@@ -328,21 +394,10 @@ namespace printything
                 StringFormat sf = new StringFormat();
                 if (centered){ sf.Alignment = StringAlignment.Center; }
                 else{ sf.Alignment = StringAlignment.Near; }
-                //print text to new canvas, use default max printing height.
                 e1.Graphics.DrawString(richTextBox1.Text, fmompt, new SolidBrush(Color.Black), new RectangleF(0, 3, pd.DefaultPageSettings.PrintableArea.Width, pd.DefaultPageSettings.PrintableArea.Height), sf);
                 pd.PrinterSettings.PrinterName = "POS58 Printer";
             };
             pd.Print();
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox2_Click(object sender, MouseEventArgs e)
-        {
-
         }
 
         private void button15_Click(object sender, EventArgs e)
@@ -367,6 +422,18 @@ namespace printything
         {
             cutHeight = Math.Abs(trackBar1.Value);
             button15.Text = "Cut to " + cutHeight + "px";
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            holdImagePreview = increaseContrast(holdImagePreview, 128);
+            pictureBox1.Image = holdImagePreview;
+        }
+
+        private void button17_Click(object sender, EventArgs e)
+        {
+            holdImagePreview = monoChrome(holdImagePreview);
+            pictureBox1.Image = holdImagePreview;
         }
     }
 }
