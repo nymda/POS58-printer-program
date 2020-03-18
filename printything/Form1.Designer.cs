@@ -40,6 +40,7 @@
             this.fontDialog = new System.Windows.Forms.FontDialog();
             this.button6 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button17 = new System.Windows.Forms.Button();
             this.button13 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -58,6 +59,7 @@
             this.button9 = new System.Windows.Forms.Button();
             this.setSizeDelay = new System.Windows.Forms.Timer(this.components);
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button16 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -68,8 +70,6 @@
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.button15 = new System.Windows.Forms.Button();
-            this.button16 = new System.Windows.Forms.Button();
-            this.button17 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -124,7 +124,7 @@
             // button4
             // 
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Location = new System.Drawing.Point(11, 19);
+            this.button4.Location = new System.Drawing.Point(219, 19);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(98, 52);
             this.button4.TabIndex = 10;
@@ -197,6 +197,17 @@
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Image";
+            // 
+            // button17
+            // 
+            this.button17.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button17.Location = new System.Drawing.Point(97, 594);
+            this.button17.Name = "button17";
+            this.button17.Size = new System.Drawing.Size(90, 23);
+            this.button17.TabIndex = 24;
+            this.button17.Text = "Mono";
+            this.button17.UseVisualStyleBackColor = true;
+            this.button17.Click += new System.EventHandler(this.button17_Click);
             // 
             // button13
             // 
@@ -387,6 +398,17 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Util";
             // 
+            // button16
+            // 
+            this.button16.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button16.Location = new System.Drawing.Point(323, 19);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(98, 52);
+            this.button16.TabIndex = 22;
+            this.button16.Text = "Webcam";
+            this.button16.UseVisualStyleBackColor = true;
+            this.button16.Click += new System.EventHandler(this.button16_Click);
+            // 
             // button12
             // 
             this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -401,7 +423,7 @@
             // button7
             // 
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Location = new System.Drawing.Point(219, 19);
+            this.button7.Location = new System.Drawing.Point(11, 19);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(98, 52);
             this.button7.TabIndex = 20;
@@ -499,27 +521,6 @@
             this.button15.Text = "Cut to 390px";
             this.button15.UseVisualStyleBackColor = true;
             this.button15.Click += new System.EventHandler(this.button15_Click);
-            // 
-            // button16
-            // 
-            this.button16.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button16.Location = new System.Drawing.Point(323, 19);
-            this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(98, 52);
-            this.button16.TabIndex = 22;
-            this.button16.Text = "Help";
-            this.button16.UseVisualStyleBackColor = true;
-            // 
-            // button17
-            // 
-            this.button17.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button17.Location = new System.Drawing.Point(97, 594);
-            this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(90, 23);
-            this.button17.TabIndex = 24;
-            this.button17.Text = "Mono";
-            this.button17.UseVisualStyleBackColor = true;
-            this.button17.Click += new System.EventHandler(this.button17_Click);
             // 
             // Form1
             // 
