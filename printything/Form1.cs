@@ -99,8 +99,8 @@ namespace printything
                         var result = form.ShowDialog();
                         if (result == DialogResult.OK)
                         {
-                            b.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                            loadedImagePure.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                            b.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                            loadedImagePure.RotateFlip(RotateFlipType.Rotate270FlipNone);
                         }
                     }
                 }
@@ -436,8 +436,21 @@ namespace printything
 
         private void button16_Click(object sender, EventArgs e)
         {
-            Webcam w = new Webcam();
-            w.Show();
+            using (var form = new Webcam())
+            {
+                var result = form.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    loadedImagePure = form.cap.Clone(new Rectangle(0, 0, form.cap.Width, form.cap.Height), System.Drawing.Imaging.PixelFormat.DontCare);
+                    pub = form.cap;
+                    Size s = calcImgSize(pub, 190, true);
+                    pub = new Bitmap(pub, s);
+                    holdGraphics.FillRectangle(Brushes.White, 0, 0, 190, 390);
+                    holdGraphics.DrawImage(pub, hScrollBar2.Value, hScrollBar3.Value);
+                    defPubSize = pub.Width;
+                    pictureBox1.Image = holdImagePreview;
+                }
+            }
         }
     }
 }
