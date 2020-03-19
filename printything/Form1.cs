@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AForge.Imaging.Filters;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Drawing.Printing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -83,6 +85,10 @@ namespace printything
                     holdGraphics.FillRectangle(Brushes.White, 0, 0, 190, 390);
                     holdGraphics.DrawImage(pub, hScrollBar2.Value, hScrollBar3.Value);
                     defPubSize = pub.Width;
+                    hScrollBar2.Minimum = (pub.Width * 3) * -1;
+                    hScrollBar2.Maximum = pub.Width;
+                    hScrollBar3.Minimum = (pub.Height * 3) * -1;
+                    hScrollBar4.Maximum = pub.Height;
                     pictureBox1.Image = holdImagePreview;
                 }
             }
@@ -244,7 +250,6 @@ namespace printything
                     pub = new Bitmap(pub, s);
                     holdGraphics.FillRectangle(Brushes.White, 0, 0, 190, 390);
                     holdGraphics.DrawImage(pub, hScrollBar2.Value, hScrollBar3.Value);
-                    hScrollBar1.Maximum = pub.Width * 2;
                     pictureBox1.Image = holdImagePreview;       
                 }
             }
@@ -386,16 +391,51 @@ namespace printything
 
         private void button14_Click(object sender, EventArgs e)
         {
-            PrintDocument pd = new PrintDocument();
-            pd.PrintPage += delegate (object sender1, PrintPageEventArgs e1)
+            string response = specialEvent(richTextBox1.Text);
+            if (response == "0")
             {
-                StringFormat sf = new StringFormat();
-                if (centered){ sf.Alignment = StringAlignment.Center; }
-                else{ sf.Alignment = StringAlignment.Near; }
-                e1.Graphics.DrawString(richTextBox1.Text, fmompt, new SolidBrush(Color.Black), new RectangleF(0, 3, pd.DefaultPageSettings.PrintableArea.Width, pd.DefaultPageSettings.PrintableArea.Height), sf);
-                pd.PrinterSettings.PrinterName = "POS58 Printer";
-            };
-            pd.Print();
+                PrintDocument pd = new PrintDocument();
+                pd.PrintPage += delegate (object sender1, PrintPageEventArgs e1)
+                {
+                    StringFormat sf = new StringFormat();
+                    if (centered) { sf.Alignment = StringAlignment.Center; }
+                    else { sf.Alignment = StringAlignment.Near; }
+                    e1.Graphics.DrawString(richTextBox1.Text, fmompt, new SolidBrush(Color.Black), new RectangleF(0, 3, pd.DefaultPageSettings.PrintableArea.Width, pd.DefaultPageSettings.PrintableArea.Height), sf);
+                    pd.PrinterSettings.PrinterName = "POS58 Printer";
+                };
+                pd.Print();
+            }
+            else
+            {
+                richTextBox1.Text = response;
+            }
+        }
+
+        private string specialEvent(string t)
+        {
+            if(t == "$ALPHA")
+            {
+                return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234567890!£$%^&*()";
+            }
+            if (t == "$CREDS")
+            {
+                return "PRIMPT - Written by kned, Designed for the POS58 Printer. Free to use and modify.";
+            }
+            if (t == "$SHADE")
+            {
+                return "███▓▓▓▒▒▒░░░\n███▓▓▓▒▒▒░░░\n███▓▓▓▒▒▒░░░\n███▓▓▓▒▒▒░░░\n███▓▓▓▒▒▒░░░";
+            }
+            if (Regex.Match(t, "[$][R][A][N][D][.].*").Success)
+            {
+                string[] split = t.Split('.');
+                int count;
+                try{ count = Int32.Parse(split[1]); }
+                catch{ count = 10; }
+                string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                Random r = new Random();
+                return new string(Enumerable.Repeat(chars, count).Select(s => s[r.Next(s.Length)]).ToArray());
+            }
+            return "0";
         }
 
         private void button15_Click(object sender, EventArgs e)
@@ -424,7 +464,8 @@ namespace printything
 
         private void button13_Click(object sender, EventArgs e)
         {
-            holdImagePreview = increaseContrast(holdImagePreview, 128);
+            ContrastCorrection filter = new ContrastCorrection(15);
+            filter.ApplyInPlace(holdImagePreview);
             pictureBox1.Image = holdImagePreview;
         }
 

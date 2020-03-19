@@ -113,7 +113,7 @@
             // hScrollBar1
             // 
             this.hScrollBar1.Location = new System.Drawing.Point(6, 457);
-            this.hScrollBar1.Maximum = 362;
+            this.hScrollBar1.Maximum = 724;
             this.hScrollBar1.Minimum = 10;
             this.hScrollBar1.Name = "hScrollBar1";
             this.hScrollBar1.Size = new System.Drawing.Size(181, 23);
@@ -250,8 +250,8 @@
             // hScrollBar3
             // 
             this.hScrollBar3.Location = new System.Drawing.Point(6, 539);
-            this.hScrollBar3.Maximum = 274;
-            this.hScrollBar3.Minimum = -274;
+            this.hScrollBar3.Maximum = 390;
+            this.hScrollBar3.Minimum = -390;
             this.hScrollBar3.Name = "hScrollBar3";
             this.hScrollBar3.Size = new System.Drawing.Size(181, 23);
             this.hScrollBar3.TabIndex = 18;
@@ -260,8 +260,8 @@
             // hScrollBar2
             // 
             this.hScrollBar2.Location = new System.Drawing.Point(6, 500);
-            this.hScrollBar2.Maximum = 181;
-            this.hScrollBar2.Minimum = -181;
+            this.hScrollBar2.Maximum = 362;
+            this.hScrollBar2.Minimum = -362;
             this.hScrollBar2.Name = "hScrollBar2";
             this.hScrollBar2.Size = new System.Drawing.Size(181, 23);
             this.hScrollBar2.TabIndex = 17;
@@ -338,18 +338,18 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(8, 484);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 13);
+            this.label3.Size = new System.Drawing.Size(80, 13);
             this.label3.TabIndex = 28;
-            this.label3.Text = "Y Pos:";
+            this.label3.Text = "Y-Axis padding:";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(8, 442);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(38, 13);
+            this.label5.Size = new System.Drawing.Size(80, 13);
             this.label5.TabIndex = 27;
-            this.label5.Text = "X Pos:";
+            this.label5.Text = "X-Axis padding:";
             // 
             // hScrollBar4
             // 
