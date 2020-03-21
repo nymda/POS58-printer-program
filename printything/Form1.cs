@@ -24,16 +24,19 @@ namespace printything
         public Font fmompt = new Font("Lucida Console", 10);
         public Graphics paperGraphics;
         public Graphics holdGraphics;
+        public Graphics heightGraphGraphics;
         Bitmap pub = null;
         Bitmap holdImagePreview = new Bitmap(189, 390);
         Bitmap paper = new Bitmap(189, 390);
         Bitmap loadedImagePure;
+        Bitmap heightGraphDisplay = new Bitmap(10, 390);
         public bool centered = false;
         public bool rotateLargeImage = false;
         public int defPubSize = 0;
         public int paperHeight = 390;
         public bool whiteText = false;
         public int cutHeight = 390;
+        public string prevGetReqUrl = "";
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -42,7 +45,7 @@ namespace printything
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            heightGraphGraphics = Graphics.FromImage(heightGraphDisplay);
             pub = new Bitmap(1, 1);
             paperGraphics = Graphics.FromImage(paper);
             holdGraphics = Graphics.FromImage(holdImagePreview);
@@ -52,6 +55,8 @@ namespace printything
             pictureBox2.Image = paper;
             holdGraphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
             holdGraphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            heightGraphGraphics.FillRectangle(Brushes.White, 0, 0, 10, 390);
+            pictureBox3.Image = heightGraphDisplay;
         }
 
         public void refreshPaperPreview()
@@ -166,6 +171,46 @@ namespace printything
             }
 
             return canvas;
+        }
+
+        public Bitmap autoProcessImage(Bitmap b, int stage = 0)
+        {
+            //todo
+
+            Bitmap canvas = new Bitmap(b.Width, b.Height);
+            Graphics g = Graphics.FromImage(b);
+
+            if (stage == 0)
+            {
+                //calculate average brightness val of image
+                List<int> Brightnesses = new List<int> { };
+                for (int x = 0; x < b.Width; x++)
+                {
+                    for (int y = 0; y < b.Height; y++)
+                    {
+                        Color tmpColor = b.GetPixel(x, y);
+                        int[] values = { tmpColor.R, tmpColor.B, tmpColor.G };
+                        int brightness = (int)values.Average();
+                        Brightnesses.Add(brightness);
+                    }
+                }
+
+                int avgImgBrightness = (int)Brightnesses.Average();
+
+                if(avgImgBrightness > 128)
+                {
+                    autoProcessImage(darkenImg(b), 0);
+                }
+                else
+                {
+                    autoProcessImage(b, 1);
+                }
+            }
+            if(stage == 1)
+            {
+                //calculate the number of different contrast areas within the image
+            }
+            return null;
         }
 
         public Bitmap monoChrome(Bitmap b)
@@ -349,24 +394,6 @@ namespace printything
             setSizeDelay.Start();
         }
 
-        private void button12_Click(object sender, EventArgs e)
-        {
-            try { hScrollBar1.Value = defPubSize; }
-            catch { }
-            try { hScrollBar2.Value = 0; }
-            catch { }
-            try { hScrollBar3.Value = 0; }
-            catch { }
-            try { hScrollBar4.Value = 0; }
-            catch { }
-            try { hScrollBar5.Value = 0; }
-            catch { }
-            if(pub != null) { 
-                setSizeDelay.Stop();
-                setSizeDelay.Start();
-            }
-        }
-
         private void button7_Click_1(object sender, EventArgs e)
         {
             pub.Dispose();
@@ -387,6 +414,22 @@ namespace printything
             pictureBox2.Image = paper;
 
             richTextBox1.Text = "";
+
+            try { hScrollBar1.Value = defPubSize; }
+            catch { }
+            try { hScrollBar2.Value = 0; }
+            catch { }
+            try { hScrollBar3.Value = 0; }
+            catch { }
+            try { hScrollBar4.Value = 0; }
+            catch { }
+            try { hScrollBar5.Value = 0; }
+            catch { }
+            if (pub != null)
+            {
+                setSizeDelay.Stop();
+                setSizeDelay.Start();
+            }
         }
 
         private void button14_Click(object sender, EventArgs e)
@@ -460,6 +503,10 @@ namespace printything
         {
             cutHeight = Math.Abs(trackBar1.Value);
             button15.Text = "Cut to " + cutHeight + "px";
+
+            heightGraphGraphics.FillRectangle(Brushes.White, 0, 0, 10, 390);
+            heightGraphGraphics.DrawLine(Pens.Black, 0, cutHeight - 1, 10, cutHeight - 1);
+            pictureBox3.Image = heightGraphDisplay;
         }
 
         private void button13_Click(object sender, EventArgs e)
@@ -492,6 +539,31 @@ namespace printything
                     pictureBox1.Image = holdImagePreview;
                 }
             }
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            using (var form = new getReq(prevGetReqUrl))
+            {
+                var result = form.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    prevGetReqUrl = form.prevUrl;
+                    loadedImagePure = form.res.Clone(new Rectangle(0, 0, form.res.Width, form.res.Height), System.Drawing.Imaging.PixelFormat.DontCare);
+                    pub = form.res;
+                    Size s = calcImgSize(pub, 190, true);
+                    pub = new Bitmap(pub, s);
+                    holdGraphics.FillRectangle(Brushes.White, 0, 0, 190, 390);
+                    holdGraphics.DrawImage(pub, hScrollBar2.Value, hScrollBar3.Value);
+                    defPubSize = pub.Width;
+                    pictureBox1.Image = holdImagePreview;
+                }
+            }
+        }
+
+        private void groupBox3_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

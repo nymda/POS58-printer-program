@@ -60,7 +60,6 @@
             this.setSizeDelay = new System.Windows.Forms.Timer(this.components);
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.button16 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.button11 = new System.Windows.Forms.Button();
@@ -70,6 +69,8 @@
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.button15 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -78,6 +79,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // button2
@@ -124,9 +126,9 @@
             // button4
             // 
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Location = new System.Drawing.Point(219, 19);
+            this.button4.Location = new System.Drawing.Point(116, 21);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(98, 52);
+            this.button4.Size = new System.Drawing.Size(100, 52);
             this.button4.TabIndex = 10;
             this.button4.Text = "Create QR-Code";
             this.button4.UseVisualStyleBackColor = true;
@@ -387,13 +389,13 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.button16);
             this.groupBox4.Controls.Add(this.button12);
+            this.groupBox4.Controls.Add(this.button16);
             this.groupBox4.Controls.Add(this.button7);
             this.groupBox4.Controls.Add(this.button4);
             this.groupBox4.Location = new System.Drawing.Point(212, 575);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(431, 87);
+            this.groupBox4.Size = new System.Drawing.Size(440, 87);
             this.groupBox4.TabIndex = 19;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Util";
@@ -401,38 +403,28 @@
             // button16
             // 
             this.button16.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button16.Location = new System.Drawing.Point(323, 19);
+            this.button16.Location = new System.Drawing.Point(224, 21);
             this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(98, 52);
+            this.button16.Size = new System.Drawing.Size(100, 52);
             this.button16.TabIndex = 22;
             this.button16.Text = "Webcam";
             this.button16.UseVisualStyleBackColor = true;
             this.button16.Click += new System.EventHandler(this.button16_Click);
             // 
-            // button12
-            // 
-            this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button12.Location = new System.Drawing.Point(115, 19);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(98, 52);
-            this.button12.TabIndex = 21;
-            this.button12.Text = "Reset sliders";
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
-            // 
             // button7
             // 
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Location = new System.Drawing.Point(11, 19);
+            this.button7.Location = new System.Drawing.Point(9, 21);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(98, 52);
+            this.button7.Size = new System.Drawing.Size(100, 52);
             this.button7.TabIndex = 20;
-            this.button7.Text = "Reset data";
+            this.button7.Text = "Reset";
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click_1);
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.pictureBox3);
             this.groupBox3.Controls.Add(this.button11);
             this.groupBox3.Controls.Add(this.button10);
             this.groupBox3.Controls.Add(this.pictureBox2);
@@ -440,17 +432,18 @@
             this.groupBox3.Controls.Add(this.trackBar1);
             this.groupBox3.Location = new System.Drawing.Point(415, 12);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(228, 506);
+            this.groupBox3.Size = new System.Drawing.Size(237, 506);
             this.groupBox3.TabIndex = 17;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Paper";
+            this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
             // button11
             // 
             this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button11.Location = new System.Drawing.Point(6, 445);
             this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(213, 23);
+            this.button11.Size = new System.Drawing.Size(223, 23);
             this.button11.TabIndex = 18;
             this.button11.Text = "Outline page (To set height)";
             this.button11.UseVisualStyleBackColor = true;
@@ -461,7 +454,7 @@
             this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button10.Location = new System.Drawing.Point(7, 416);
             this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(212, 23);
+            this.button10.Size = new System.Drawing.Size(222, 23);
             this.button10.TabIndex = 17;
             this.button10.Text = "Clear";
             this.button10.UseVisualStyleBackColor = true;
@@ -481,7 +474,7 @@
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(7, 474);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(212, 23);
+            this.button1.Size = new System.Drawing.Size(222, 23);
             this.button1.TabIndex = 2;
             this.button1.Text = "Print";
             this.button1.UseVisualStyleBackColor = true;
@@ -489,14 +482,14 @@
             // 
             // trackBar1
             // 
-            this.trackBar1.Location = new System.Drawing.Point(174, 19);
+            this.trackBar1.Location = new System.Drawing.Point(184, 18);
             this.trackBar1.Maximum = 0;
             this.trackBar1.Minimum = -390;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.trackBar1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.trackBar1.RightToLeftLayout = true;
-            this.trackBar1.Size = new System.Drawing.Size(45, 390);
+            this.trackBar1.Size = new System.Drawing.Size(45, 391);
             this.trackBar1.TabIndex = 21;
             this.trackBar1.Value = -390;
             this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
@@ -506,7 +499,7 @@
             this.groupBox5.Controls.Add(this.button15);
             this.groupBox5.Location = new System.Drawing.Point(415, 519);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(228, 55);
+            this.groupBox5.Size = new System.Drawing.Size(237, 55);
             this.groupBox5.TabIndex = 20;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Vertical Cut";
@@ -516,18 +509,37 @@
             this.button15.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button15.Location = new System.Drawing.Point(6, 19);
             this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(213, 23);
+            this.button15.Size = new System.Drawing.Size(223, 23);
             this.button15.TabIndex = 18;
             this.button15.Text = "Cut to 390px";
             this.button15.UseVisualStyleBackColor = true;
             this.button15.Click += new System.EventHandler(this.button15_Click);
+            // 
+            // button12
+            // 
+            this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button12.Location = new System.Drawing.Point(332, 21);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(100, 52);
+            this.button12.TabIndex = 23;
+            this.button12.Text = "Get";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Location = new System.Drawing.Point(189, 19);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(10, 390);
+            this.pictureBox3.TabIndex = 22;
+            this.pictureBox3.TabStop = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.ClientSize = new System.Drawing.Size(652, 671);
+            this.ClientSize = new System.Drawing.Size(660, 671);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -550,6 +562,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.groupBox5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -580,7 +593,6 @@
         private System.Windows.Forms.HScrollBar hScrollBar5;
         private System.Windows.Forms.Timer setSizeDelay;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Button button14;
@@ -596,6 +608,8 @@
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.Button button17;
         private System.Windows.Forms.Button button16;
+        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.PictureBox pictureBox3;
     }
 }
 
