@@ -59,9 +59,11 @@
             this.button9 = new System.Windows.Forms.Button();
             this.setSizeDelay = new System.Windows.Forms.Timer(this.components);
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button12 = new System.Windows.Forms.Button();
             this.button16 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.button11 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -69,17 +71,16 @@
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.button15 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // button2
@@ -400,6 +401,17 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Util";
             // 
+            // button12
+            // 
+            this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button12.Location = new System.Drawing.Point(332, 21);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(100, 52);
+            this.button12.TabIndex = 23;
+            this.button12.Text = "Get";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
             // button16
             // 
             this.button16.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -425,9 +437,10 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.pictureBox3);
+            this.groupBox3.Controls.Add(this.pictureBox2);
+            this.groupBox3.Controls.Add(this.panel1);
             this.groupBox3.Controls.Add(this.button11);
             this.groupBox3.Controls.Add(this.button10);
-            this.groupBox3.Controls.Add(this.pictureBox2);
             this.groupBox3.Controls.Add(this.button1);
             this.groupBox3.Controls.Add(this.trackBar1);
             this.groupBox3.Location = new System.Drawing.Point(415, 12);
@@ -437,6 +450,14 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Paper";
             this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Location = new System.Drawing.Point(189, 19);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(10, 390);
+            this.pictureBox3.TabIndex = 22;
+            this.pictureBox3.TabStop = false;
             // 
             // button11
             // 
@@ -483,7 +504,7 @@
             // trackBar1
             // 
             this.trackBar1.Location = new System.Drawing.Point(184, 18);
-            this.trackBar1.Maximum = 0;
+            this.trackBar1.Maximum = 1;
             this.trackBar1.Minimum = -390;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
@@ -515,24 +536,13 @@
             this.button15.UseVisualStyleBackColor = true;
             this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
-            // button12
+            // panel1
             // 
-            this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button12.Location = new System.Drawing.Point(332, 21);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(100, 52);
-            this.button12.TabIndex = 23;
-            this.button12.Text = "Get";
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Location = new System.Drawing.Point(189, 19);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(10, 390);
-            this.pictureBox3.TabIndex = 22;
-            this.pictureBox3.TabStop = false;
+            this.panel1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.panel1.Location = new System.Drawing.Point(7, 19);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(192, 390);
+            this.panel1.TabIndex = 21;
             // 
             // Form1
             // 
@@ -559,10 +569,10 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.groupBox5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -610,6 +620,7 @@
         private System.Windows.Forms.Button button16;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 

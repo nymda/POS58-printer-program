@@ -30,18 +30,29 @@ namespace printything
 
         private void button1_Click(object sender, EventArgs e)
         {
-            WebClient w = new WebClient();
-            Bitmap bmp;
+            prevUrl = textBox1.Text;
 
-            if (checkBox1.Checked)
+            try
             {
-                w.Credentials = new NetworkCredential(textBox2.Text, textBox3.Text);
+                WebClient w = new WebClient();
+                Bitmap bmp;
+
+                if (checkBox1.Checked)
+                {
+                    w.Credentials = new NetworkCredential(textBox2.Text, textBox3.Text);
+                }
+
+                byte[] bmpData = w.DownloadData(textBox1.Text);
+                using (var ms = new MemoryStream(bmpData)) { bmp = new Bitmap(ms); }
+
+                pictureBox1.Image = bmp;
+
+                label4.Text = "Status: success";
             }
-
-            byte[] bmpData = w.DownloadData(textBox1.Text);
-            using (var ms = new MemoryStream(bmpData)){ bmp = new Bitmap(ms); }
-
-            pictureBox1.Image = bmp;
+            catch
+            {
+                label4.Text = "Status: failed";
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)

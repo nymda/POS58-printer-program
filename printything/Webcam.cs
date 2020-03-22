@@ -24,15 +24,20 @@ namespace printything
         public Bitmap cap { get; set; }
         private FilterInfoCollection VideoCaptureDevices;
         private VideoCaptureDevice FinalVideo;
+        public Bitmap canvas;
+        public Graphics canvasGraphics;
+        bool firstFrameGet = true;
+        List<String> devices = new List<String> { };
+        int frames = 0;
+        int dropped = 0;
 
         private void Webcam_Load(object sender, EventArgs e)
         {
+            timer1.Start();
             VideoCaptureDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
-            foreach (FilterInfo VideoCaptureDevice in VideoCaptureDevices){ comboBox1.Items.Add(VideoCaptureDevice.Name); }
-            if(comboBox1.Items.Count == 0)
+            foreach (FilterInfo VideoCaptureDevice in VideoCaptureDevices){ devices.Add(VideoCaptureDevice.Name); }
+            if(devices.Count == 0)
             {
-                comboBox1.Enabled = false;
-                button1.Enabled = false;
                 button2.Enabled = false;
 
                 StringFormat sf = new StringFormat();
@@ -43,18 +48,43 @@ namespace printything
                 g.DrawString("No webcams found", fmompt, new SolidBrush(Color.Black), new RectangleF(0, 0, b.Width, b.Height), sf);
                 pictureBox1.Image = b;
             }
-            else{ comboBox1.SelectedIndex = 0; }
+            else
+            {
+                label1.Text = "Device: " + devices[0];
+                FinalVideo = new VideoCaptureDevice(VideoCaptureDevices[0].MonikerString);
+                FinalVideo.NewFrame += new NewFrameEventHandler(FinalVideo_NewFrame);
+                FinalVideo.Start();
+            }
         }
         void FinalVideo_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
-            Bitmap video = (Bitmap)eventArgs.Frame.Clone();
-            pictureBox1.Image = video;
+            try
+            {
+                if (firstFrameGet)
+                {
+                    canvas = new Bitmap(eventArgs.Frame.Width, eventArgs.Frame.Height);
+                    canvasGraphics = Graphics.FromImage(canvas);
+                    canvasGraphics.DrawImage(eventArgs.Frame, 0, 0, canvas.Width, canvas.Height);
+                    pictureBox1.Image = canvas;
+                    firstFrameGet = false;
+                }
+                else
+                {
+                    canvasGraphics.DrawImage(eventArgs.Frame, 0, 0, canvas.Width, canvas.Height);
+                    pictureBox1.Image = canvas;
+
+                }
+                frames++;
+            }
+            catch
+            {
+                //dropped frame
+                dropped++;
+            }
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            FinalVideo = new VideoCaptureDevice(VideoCaptureDevices[comboBox1.SelectedIndex].MonikerString);
-            FinalVideo.NewFrame += new NewFrameEventHandler(FinalVideo_NewFrame);
-            FinalVideo.Start();
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -63,6 +93,18 @@ namespace printything
             this.cap = (Bitmap)pictureBox1.Image;
             this.DialogResult = DialogResult.OK;
             this.Close();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FinalVideo = new VideoCaptureDevice(VideoCaptureDevices[0].MonikerString);
+            FinalVideo.NewFrame += new NewFrameEventHandler(FinalVideo_NewFrame);
+            FinalVideo.Start();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            label2.Text = "Frames: " + frames + " | Dropped: " + dropped;
         }
     }
 }

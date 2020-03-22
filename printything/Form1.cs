@@ -207,8 +207,7 @@ namespace printything
                 }
             }
             if(stage == 1)
-            {
-                //calculate the number of different contrast areas within the image
+            {                //calculate the number of different contrast areas within the image
             }
             return null;
         }
@@ -226,15 +225,14 @@ namespace printything
                     int[] values = { tmpColor.R, tmpColor.B, tmpColor.G };
                     double avg = values.Average();
                     Color nCol;
-                    if(avg > 0 && avg <= 64){ nCol = Color.FromArgb(0, 0, 0); }
-                    else if(avg > 64 && avg <= 128){ nCol = Color.FromArgb(64, 64, 64); }
+                    if (avg >= 0 && avg <= 64){ nCol = Color.FromArgb(0, 0, 0); }
+                    else if (avg > 64 && avg <= 128){ nCol = Color.FromArgb(64, 64, 64); }
                     else if (avg > 128 && avg <= 192){ nCol = Color.FromArgb(128, 128, 128); }
                     else if (avg == 255) { nCol = Color.White; }
                     else { nCol = Color.FromArgb(192, 192, 192); }
                     g.DrawRectangle(new Pen(nCol), x, y, 1, 1);
                 }
             }
-
             return canvas;
         }
 
