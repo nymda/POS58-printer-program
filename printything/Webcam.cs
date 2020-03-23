@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AForge.Video.DirectShow;
 using AForge.Video;
+using AForge.Imaging.Filters;
 
 namespace printything
 {
@@ -30,6 +31,9 @@ namespace printything
         List<String> devices = new List<String> { };
         int frames = 0;
         int dropped = 0;
+        int brightness = 10;
+        int contrast = 35;
+
 
         private void Webcam_Load(object sender, EventArgs e)
         {
@@ -56,6 +60,7 @@ namespace printything
                 FinalVideo.Start();
             }
         }
+
         void FinalVideo_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
             try
@@ -65,13 +70,38 @@ namespace printything
                     canvas = new Bitmap(eventArgs.Frame.Width, eventArgs.Frame.Height);
                     canvasGraphics = Graphics.FromImage(canvas);
                     canvasGraphics.DrawImage(eventArgs.Frame, 0, 0, canvas.Width, canvas.Height);
-                    pictureBox1.Image = canvas;
+                    if (checkBox1.Checked)
+                    {
+                        Bitmap small = smol(canvas);
+                        BrightnessCorrection f0 = new BrightnessCorrection(brightness);
+                        f0.ApplyInPlace(small);
+                        ContrastCorrection f1 = new ContrastCorrection(contrast);
+                        f1.ApplyInPlace(small);
+                        pictureBox1.Image = monoChrome(small);
+                    }
+                    else
+                    {
+                        pictureBox1.Image = canvas;
+                    }
+
                     firstFrameGet = false;
                 }
                 else
                 {
                     canvasGraphics.DrawImage(eventArgs.Frame, 0, 0, canvas.Width, canvas.Height);
-                    pictureBox1.Image = canvas;
+                    if (checkBox1.Checked)
+                    {
+                        Bitmap small = smol(canvas);
+                        BrightnessCorrection f0 = new BrightnessCorrection(brightness);
+                        f0.ApplyInPlace(small);
+                        ContrastCorrection f1 = new ContrastCorrection(contrast);
+                        f1.ApplyInPlace(small);
+                        pictureBox1.Image = monoChrome(small);
+                    }
+                    else
+                    {
+                        pictureBox1.Image = canvas;
+                    }
 
                 }
                 frames++;
@@ -82,9 +112,46 @@ namespace printything
                 dropped++;
             }
         }
+
         private void button1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        public Bitmap smol(Bitmap b)
+        {
+            ContrastCorrection filter = new ContrastCorrection(30);
+            filter.ApplyInPlace(b);
+
+            Bitmap ret = new Bitmap(b.Width / 4, b.Height / 4);
+            Graphics rg = Graphics.FromImage(ret);
+            rg.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+            rg.DrawImage(b, 0, 0, ret.Width, ret.Height);
+            return ret;
+        }
+
+        public Bitmap monoChrome(Bitmap b)
+        {
+            Bitmap canvas = new Bitmap(b.Width, b.Height);
+            Graphics g = Graphics.FromImage(canvas);
+
+            for (int x = 0; x < b.Width; x++)
+            {
+                for (int y = 0; y < b.Height; y++)
+                {
+                    Color tmpColor = b.GetPixel(x, y);
+                    int[] values = { tmpColor.R, tmpColor.B, tmpColor.G };
+                    double avg = values.Average();
+                    Color nCol;
+                    if (avg >= 0 && avg <= 64) { nCol = Color.FromArgb(0, 0, 0); }
+                    else if (avg > 64 && avg <= 128) { nCol = Color.FromArgb(64, 64, 64); }
+                    else if (avg > 128 && avg <= 192) { nCol = Color.FromArgb(128, 128, 128); }
+                    else if (avg == 255) { nCol = Color.White; }
+                    else { nCol = Color.FromArgb(192, 192, 192); }
+                    g.DrawRectangle(new Pen(nCol), x, y, 1, 1);
+                }
+            }
+            return canvas;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -105,6 +172,8 @@ namespace printything
         private void timer1_Tick(object sender, EventArgs e)
         {
             label2.Text = "Frames: " + frames + " | Dropped: " + dropped;
+            brightness = trackBar1.Value;
+            contrast = trackBar2.Value;
         }
     }
 }

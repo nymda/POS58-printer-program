@@ -289,6 +289,7 @@ namespace printything
                 if (result == DialogResult.OK)
                 {
                     pub = form.retBit;
+                    loadedImagePure = form.retBit;
                     Size s = calcImgSize(pub, 190, true);
                     pub = new Bitmap(pub, s);
                     holdGraphics.FillRectangle(Brushes.White, 0, 0, 190, 390);
@@ -538,6 +539,8 @@ namespace printything
                 }
             }
         }
+
+
 
         private void button12_Click(object sender, EventArgs e)
         {
