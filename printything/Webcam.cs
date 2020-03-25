@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using AForge.Video.DirectShow;
 using AForge.Video;
 using AForge.Imaging.Filters;
+using System.Drawing.Imaging;
 
 namespace printything
 {
@@ -31,9 +32,23 @@ namespace printything
         List<String> devices = new List<String> { };
         int frames = 0;
         int dropped = 0;
+        string device = "";
         int brightness = 10;
         int contrast = 35;
+        public Int32[] pixels;
+        protected GCHandle PixHandle;
 
+        //disables [X] button
+        private const int CP_NOCLOSE_BUTTON = 0x200;
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams myCp = base.CreateParams;
+                myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
+                return myCp;
+            }
+        }
 
         private void Webcam_Load(object sender, EventArgs e)
         {
@@ -54,63 +69,75 @@ namespace printything
             }
             else
             {
-                label1.Text = "Device: " + devices[0];
+                device = devices[0];
                 FinalVideo = new VideoCaptureDevice(VideoCaptureDevices[0].MonikerString);
                 FinalVideo.NewFrame += new NewFrameEventHandler(FinalVideo_NewFrame);
                 FinalVideo.Start();
             }
         }
 
+        bool flip = true;
         void FinalVideo_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
-            try
+            if (flip)
             {
-                if (firstFrameGet)
+                try
                 {
-                    canvas = new Bitmap(eventArgs.Frame.Width, eventArgs.Frame.Height);
-                    canvasGraphics = Graphics.FromImage(canvas);
-                    canvasGraphics.DrawImage(eventArgs.Frame, 0, 0, canvas.Width, canvas.Height);
-                    if (checkBox1.Checked)
+                    if (firstFrameGet)
                     {
-                        Bitmap small = smol(canvas);
-                        BrightnessCorrection f0 = new BrightnessCorrection(brightness);
-                        f0.ApplyInPlace(small);
-                        ContrastCorrection f1 = new ContrastCorrection(contrast);
-                        f1.ApplyInPlace(small);
-                        pictureBox1.Image = monoChrome(small);
+                        Bitmap smallPreDraw = smol(eventArgs.Frame);
+                        Bitmap mono = monoLocked(smallPreDraw);
+
+                        canvas = new Bitmap(eventArgs.Frame.Width, eventArgs.Frame.Height);
+                        canvasGraphics = Graphics.FromImage(canvas);
+                        canvasGraphics.DrawImage(eventArgs.Frame, 0, 0, canvas.Width, canvas.Height);
+                        if (checkBox1.Checked)
+                        {
+                            Bitmap small = smol(canvas);
+                            BrightnessCorrection f0 = new BrightnessCorrection(brightness);
+                            f0.ApplyInPlace(small);
+                            ContrastCorrection f1 = new ContrastCorrection(contrast);
+                            f1.ApplyInPlace(small);
+                            pictureBox1.Image = monoLocked(small);
+                        }
+                        else
+                        {
+                            pictureBox1.Image = canvas;
+                        }
+
+                        firstFrameGet = false;
                     }
                     else
                     {
-                        pictureBox1.Image = canvas;
-                    }
+                        canvasGraphics.DrawImage(eventArgs.Frame, 0, 0, canvas.Width, canvas.Height);
+                        if (checkBox1.Checked)
+                        {
+                            Bitmap small = smol(canvas);
+                            BrightnessCorrection f0 = new BrightnessCorrection(brightness);
+                            f0.ApplyInPlace(small);
+                            ContrastCorrection f1 = new ContrastCorrection(contrast);
+                            f1.ApplyInPlace(small);
+                            pictureBox1.Image = monoLocked(small);
+                        }
+                        else
+                        {
+                            pictureBox1.Image = canvas;
+                        }
 
-                    firstFrameGet = false;
+                    }
+                    frames++;
                 }
-                else
+                catch
                 {
-                    canvasGraphics.DrawImage(eventArgs.Frame, 0, 0, canvas.Width, canvas.Height);
-                    if (checkBox1.Checked)
-                    {
-                        Bitmap small = smol(canvas);
-                        BrightnessCorrection f0 = new BrightnessCorrection(brightness);
-                        f0.ApplyInPlace(small);
-                        ContrastCorrection f1 = new ContrastCorrection(contrast);
-                        f1.ApplyInPlace(small);
-                        pictureBox1.Image = monoChrome(small);
-                    }
-                    else
-                    {
-                        pictureBox1.Image = canvas;
-                    }
-
+                    dropped++;
                 }
-                frames++;
+                flip = !flip;
             }
-            catch
+            else
             {
-                //dropped frame
-                dropped++;
+                flip = !flip;
             }
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -120,38 +147,84 @@ namespace printything
 
         public Bitmap smol(Bitmap b)
         {
-            ContrastCorrection filter = new ContrastCorrection(30);
-            filter.ApplyInPlace(b);
-
-            Bitmap ret = new Bitmap(b.Width / 4, b.Height / 4);
-            Graphics rg = Graphics.FromImage(ret);
-            rg.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-            rg.DrawImage(b, 0, 0, ret.Width, ret.Height);
-            return ret;
+            if (checkBox2.Checked)
+            {
+                Bitmap ret = new Bitmap(320, 240);
+                Graphics rg = Graphics.FromImage(ret);
+                rg.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+                rg.DrawImage(b, 0, 0, 320, 240);
+                return ret;
+            }
+            else
+            {
+                //shouldnt be nessicary, shit if i know why it is
+                Bitmap ret = new Bitmap(b.Width, b.Height);
+                Graphics rg = Graphics.FromImage(ret);
+                rg.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+                rg.DrawImage(b, 0, 0, b.Width, b.Height);
+                return ret;
+            }
         }
 
-        public Bitmap monoChrome(Bitmap b)
+        public Bitmap monoLocked(Bitmap btm)
         {
-            Bitmap canvas = new Bitmap(b.Width, b.Height);
-            Graphics g = Graphics.FromImage(canvas);
+            BitmapData BtmpDt = btm.LockBits(new Rectangle(0, 0, btm.Width, btm.Height), ImageLockMode.ReadWrite, btm.PixelFormat);
+            IntPtr pointer = BtmpDt.Scan0;
+            int size = Math.Abs(BtmpDt.Stride) * btm.Height;
+            byte[] pixels = new byte[size];
+            Marshal.Copy(pointer, pixels, 0, size);
 
-            for (int x = 0; x < b.Width; x++)
+            int counter = 0;
+            List<int> rgbStore = new List<int> { };
+            for (int b = 0; b < pixels.Length; b++)
             {
-                for (int y = 0; y < b.Height; y++)
+                if (counter == 3)
                 {
-                    Color tmpColor = b.GetPixel(x, y);
-                    int[] values = { tmpColor.R, tmpColor.B, tmpColor.G };
-                    double avg = values.Average();
-                    Color nCol;
-                    if (avg >= 0 && avg <= 64) { nCol = Color.FromArgb(0, 0, 0); }
-                    else if (avg > 64 && avg <= 128) { nCol = Color.FromArgb(64, 64, 64); }
-                    else if (avg > 128 && avg <= 192) { nCol = Color.FromArgb(128, 128, 128); }
-                    else if (avg == 255) { nCol = Color.White; }
-                    else { nCol = Color.FromArgb(192, 192, 192); }
-                    g.DrawRectangle(new Pen(nCol), x, y, 1, 1);
+                    //process bitmap here
+                    int avg = rgbStore[0] + rgbStore[1] + rgbStore[2];
+                    avg = avg / 3;
+
+                    if (avg >= 0 && avg <= 64)
+                    {
+                        avg = 0;
+                    }
+                    else if (avg > 64 && avg <= 128)
+                    {
+                        avg = 64;
+                    }
+                    else if (avg > 128 && avg <= 192)
+                    {
+                        avg = 128;
+                    }
+                    else if (avg == 255)
+                    {
+                        avg = 255;
+                    }
+                    else
+                    {
+                        avg = 192;
+                    }
+
+                    pixels[b - 3] = (byte)avg;
+                    pixels[b - 2] = (byte)avg;
+                    pixels[b - 1] = (byte)avg;
+                    pixels[b] = 255;
+
+
+                    //reset data for next chunk
+                    counter = 0;
+                    rgbStore = new List<int> { };
+                }
+                else
+                {
+                    counter++;
+                    rgbStore.Add(pixels[b]);
                 }
             }
-            return canvas;
+            Marshal.Copy(pixels, 0, pointer, size);
+            btm.UnlockBits(BtmpDt);
+
+            return btm;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -169,11 +242,23 @@ namespace printything
             FinalVideo.Start();
         }
 
+        public void buildTitleBox()
+        {
+            this.Text = string.Format("| Webcam | Frame: {0} | Dropped : {1} | Device: {2} |", frames, dropped, device);
+        }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
-            label2.Text = "Frames: " + frames + " | Dropped: " + dropped;
+            buildTitleBox();
             brightness = trackBar1.Value;
             contrast = trackBar2.Value;
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            FinalVideo.Stop();
+            this.DialogResult = DialogResult.Abort;
+            this.Close();
         }
     }
 }
