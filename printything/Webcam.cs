@@ -37,6 +37,7 @@ namespace printything
         int contrast = 35;
         public Int32[] pixels;
         protected GCHandle PixHandle;
+        public int fpsCounter = 0;
 
         //disables [X] button
         private const int CP_NOCLOSE_BUTTON = 0x200;
@@ -52,6 +53,7 @@ namespace printything
 
         private void Webcam_Load(object sender, EventArgs e)
         {
+            timer2.Start();
             timer1.Start();
             VideoCaptureDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             foreach (FilterInfo VideoCaptureDevice in VideoCaptureDevices){ devices.Add(VideoCaptureDevice.Name); }
@@ -79,7 +81,7 @@ namespace printything
         bool flip = true;
         void FinalVideo_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
-            if (flip)
+            if (flip || !checkBox3.Checked)
             {
                 try
                 {
@@ -131,6 +133,7 @@ namespace printything
                 {
                     dropped++;
                 }
+                fpsCounter++;
                 flip = !flip;
             }
             else
@@ -259,6 +262,17 @@ namespace printything
             FinalVideo.Stop();
             this.DialogResult = DialogResult.Abort;
             this.Close();
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            string fps = fpsCounter.ToString();
+            if(fps.Length == 1)
+            {
+                fps = "0" + fps;
+            }
+            label1.Text = "Fps: " + fps;
+            fpsCounter = 0;
         }
     }
 }
