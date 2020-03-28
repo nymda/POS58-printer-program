@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Drawing.Printing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -235,6 +236,68 @@ namespace printything
             }
             return canvas;
         }
+
+        public Bitmap monoLocked(Bitmap btm)
+        {
+            BitmapData BtmpDt = btm.LockBits(new Rectangle(0, 0, btm.Width, btm.Height), ImageLockMode.ReadWrite, btm.PixelFormat);
+            IntPtr pointer = BtmpDt.Scan0;
+            int size = Math.Abs(BtmpDt.Stride) * btm.Height;
+            byte[] pixels = new byte[size];
+            Marshal.Copy(pointer, pixels, 0, size);
+
+            int counter = 0;
+            List<int> rgbStore = new List<int> { };
+            for (int b = 0; b < pixels.Length; b++)
+            {
+                if (counter == 3)
+                {
+                    //process bitmap here
+                    int avg = rgbStore[0] + rgbStore[1] + rgbStore[2];
+                    avg = avg / 3;
+
+                    if (avg >= 0 && avg <= 64)
+                    {
+                        avg = 0;
+                    }
+                    else if (avg > 64 && avg <= 128)
+                    {
+                        avg = 64;
+                    }
+                    else if (avg > 128 && avg <= 192)
+                    {
+                        avg = 128;
+                    }
+                    else if (avg == 255)
+                    {
+                        avg = 255;
+                    }
+                    else
+                    {
+                        avg = 192;
+                    }
+
+                    pixels[b - 3] = (byte)avg;
+                    pixels[b - 2] = (byte)avg;
+                    pixels[b - 1] = (byte)avg;
+                    pixels[b] = 255;
+
+
+                    //reset data for next chunk
+                    counter = 0;
+                    rgbStore = new List<int> { };
+                }
+                else
+                {
+                    counter++;
+                    rgbStore.Add(pixels[b]);
+                }
+            }
+            Marshal.Copy(pixels, 0, pointer, size);
+            btm.UnlockBits(BtmpDt);
+
+            return btm;
+        }
+
 
         public float truncate(float i)
         {
@@ -517,7 +580,7 @@ namespace printything
 
         private void button17_Click(object sender, EventArgs e)
         {
-            holdImagePreview = monoChrome(holdImagePreview);
+            holdImagePreview = monoLocked(holdImagePreview);
             pictureBox1.Image = holdImagePreview;
         }
 
@@ -540,8 +603,6 @@ namespace printything
             }
         }
 
-
-
         private void button12_Click(object sender, EventArgs e)
         {
             using (var form = new getReq(prevGetReqUrl))
@@ -562,9 +623,18 @@ namespace printything
             }
         }
 
-        private void groupBox3_Enter(object sender, EventArgs e)
+        private void button18_Click(object sender, EventArgs e)
         {
+            using (SaveFileDialog dlg = new SaveFileDialog())
+            {
+                dlg.Title = "Save";
+                dlg.Filter = "Png files | .png";
 
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    pictureBox2.Image.Save(dlg.FileName, ImageFormat.Png);
+                }
+            }
         }
     }
 }
